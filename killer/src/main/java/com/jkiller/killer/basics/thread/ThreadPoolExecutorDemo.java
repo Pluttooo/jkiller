@@ -27,7 +27,7 @@ public class ThreadPoolExecutorDemo {
         }
         threadPoolExecutor.shutdown();
         while (!threadPoolExecutor.isTerminated()) {
-
+            System.out.println(" ");
         }
         System.out.println("Finished all threads!");
     }
