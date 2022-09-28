@@ -26,9 +26,8 @@ public class ThreadPoolExecutorDemo {
             threadPoolExecutor.execute(worker);
         }
         threadPoolExecutor.shutdown();
-        while (!threadPoolExecutor.isTerminated()) {
-            System.out.println(" ");
-        }
+        // 空循环查询线程是否已经被全部结束
+        while (!threadPoolExecutor.isTerminated()) {}
         System.out.println("Finished all threads!");
     }
 }
