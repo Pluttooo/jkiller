@@ -33,4 +33,11 @@ public class BasicPracticeController {
         return myProfileProperties;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/my_filter", method = RequestMethod.GET)
+    public String getFilterMessage() throws InterruptedException{
+        Thread.sleep(500);
+        return "Hello";
+    }
+
 }
