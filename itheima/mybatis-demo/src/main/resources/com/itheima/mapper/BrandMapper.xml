@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itheima.mapper.BrandMapper">
+    <select id="selectAllBrands" resultType="com.itheima.pojo.Brand">
+        select id, brand_name, company_name, ordered, description, status
+        from mybatis.tb_brand
+    </select>
+    <select id="selectBrandById" resultType="com.itheima.pojo.Brand">
+        select id, brand_name, company_name, ordered, description, status
+        from mybatis.tb_brand
+        where id = #{id}
+    </select>
+    <select id="selectBrandByCondition" resultType="com.itheima.pojo.Brand">
+        select id, brand_name, company_name, ordered, description, status
+        from mybatis.tb_brand
+        <where>
+            <if test="status != null">
+                status = #{status}
+            </if>
+            <if test="brandName != null and brandName != '' ">
+                and brand_name like #{brandName}
+            </if>
+            <if test="companyName != null and companyName != '' ">
+                and company_name like #{companyName}
+            </if>
+        </where>
+    </select>
+    <select id="selectBrandBySingleCondition" resultType="com.itheima.pojo.Brand">
+        select id, brand_name, company_name, ordered, description, status
+        from mybatis.tb_brand
+        <where>
+            <choose>
+                <when test="status != null">
+                    status = #{status}
+                </when>
+                <when test="brandName != null and brandName != ''">
+                    brand_name like #{brandName}
+                </when>
+                <when test="companyName != null and companyName != ''">
+                    company_name like #{companyName}
+                </when>
+            </choose>
+        </where>
+    </select>
+</mapper>

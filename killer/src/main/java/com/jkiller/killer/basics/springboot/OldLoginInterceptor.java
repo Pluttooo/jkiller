@@ -3,7 +3,7 @@ package com.jkiller.killer.basics.springboot;
 /**
  * 如果用户输入已经被废弃的链接 /admin/oldLogin, 它将重定向到新的 /admin/login
  */
-//public class OldLoginInterceptor implements HandlerInterceptor {
+// public class OldLoginInterceptor implements HandlerInterceptor {
 //
 //    private static final Logger logger = LoggerFactory.getLogger(OldLoginInterceptor.class);
 //
@@ -26,4 +26,4 @@ package com.jkiller.killer.basics.springboot;
 //    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
 //        logger.info("\\n-------- QueryStringInterceptor.afterCompletion --- ");
 //    }
-//}
+// }
