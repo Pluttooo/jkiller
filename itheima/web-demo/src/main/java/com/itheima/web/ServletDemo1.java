@@ -13,10 +13,16 @@ import java.io.IOException;
  * 实现servlet接口时 要重写接口中的全部方法
  * 使用 @WebServlet注解 来配置该Servlet的访问路径
  */
-@WebServlet(value = "/servlet/demo1")
+@WebServlet(urlPatterns = "/servlet/demo1")
 public class ServletDemo1 implements Servlet {
-    public void init(ServletConfig servletConfig) throws ServletException {
 
+    /**
+     * 初始化Servlet对象
+     * @param servletConfig
+     * @throws ServletException
+     */
+    public void init(ServletConfig servletConfig) throws ServletException {
+        System.out.println("servlet init...");
     }
 
     public ServletConfig getServletConfig() {
@@ -24,6 +30,7 @@ public class ServletDemo1 implements Servlet {
     }
 
     /**
+     * 请求处理
      * service方法比较重要
      * @param servletRequest
      * @param servletResponse
@@ -31,14 +38,18 @@ public class ServletDemo1 implements Servlet {
      * @throws IOException
      */
     public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
-        System.out.println("servlet hello world");
+        System.out.println("servlet hello world...");
+    }
+
+    /**
+     * 销毁Servlet对象
+     */
+    public void destroy() {
+        System.out.println("destroy servlet...");
+
     }
 
     public String getServletInfo() {
         return null;
-    }
-
-    public void destroy() {
-
     }
 }
