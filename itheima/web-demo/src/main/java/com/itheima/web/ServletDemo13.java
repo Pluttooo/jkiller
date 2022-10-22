@@ -11,6 +11,7 @@ public class ServletDemo13 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("do get...");
+        req.getRequestDispatcher("/req6").forward(req, resp);
     }
 
     @Override
