@@ -1,7 +1,6 @@
 package com.itheima.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.sun.tools.corba.se.idl.constExpr.Or;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
