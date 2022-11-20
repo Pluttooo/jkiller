@@ -1,6 +1,6 @@
 # port
 server:
-  port: 81
+  port: 1995
 
 # datasource config
 spring:
