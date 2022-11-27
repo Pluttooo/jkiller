@@ -1,0 +1,11 @@
+spring:
+  redis:
+    host: 150.158.180.158
+    port: 63790
+    password: 199505
+  data:
+    mongodb:
+      uri: mongodb://150.158.180.158:27018
+      username: root
+      password: 199505
+
