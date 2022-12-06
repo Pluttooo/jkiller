@@ -32,12 +32,13 @@ public class EmployeeController {
         // 把用户密码md5加密
         String password = employee.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
+        log.info("传入的employee_password=" + password);
         // 根据username查询employee信息
         LambdaQueryWrapper<Employee> lambdaQueryWrapper = new LambdaQueryWrapper<>();
         lambdaQueryWrapper.eq(Employee::getUsername, employee.getUsername());
         Employee emp = employeeMapper.selectOne(lambdaQueryWrapper);
 
-        if (null == emp || !emp.getPassword().equals(employee.getPassword())) {
+        if (null == emp || password.equals(emp.getPassword())) {
             return BaseResponse.error("登录失败");
         }
         if (emp.getStatus() == 0) {
