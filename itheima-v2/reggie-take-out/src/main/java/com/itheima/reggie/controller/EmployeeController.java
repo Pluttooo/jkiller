@@ -28,7 +28,7 @@ public class EmployeeController {
 
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public BaseResponse<Employee> loginController(HttpServletRequest request, @RequestBody Employee employee) {
+    public BaseResponse<Employee> login(HttpServletRequest request, @RequestBody Employee employee) {
         // 把用户密码md5加密
         String password = employee.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
@@ -46,5 +46,13 @@ public class EmployeeController {
         // 登录成功，将员工id存入Session并返回登录成功结果
         request.getSession().setAttribute("employee", emp.getId());
         return BaseResponse.success(emp);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public BaseResponse<String> logout(HttpServletRequest request) {
+        // 清理Session中保存的当前登录员工的id
+        request.getSession().removeAttribute("employee");
+        return BaseResponse.success("退出成功");
     }
 }
