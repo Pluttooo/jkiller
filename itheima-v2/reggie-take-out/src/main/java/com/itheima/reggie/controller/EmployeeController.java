@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/employee")
+@RequestMapping(value = "/api/employee")
 public class EmployeeController {
 
     // @Autowired
@@ -26,6 +28,12 @@ public class EmployeeController {
     @Autowired
     private EmployeeMapper employeeMapper;
 
+    /**
+     * 登录
+     * @param request
+     * @param employee
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public BaseResponse<Employee> login(HttpServletRequest request, @RequestBody Employee employee) {
@@ -49,11 +57,33 @@ public class EmployeeController {
         return BaseResponse.success(emp);
     }
 
+    /**
+     * 登出
+     * @param request
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public BaseResponse<String> logout(HttpServletRequest request) {
         // 清理Session中保存的当前登录员工的id
         request.getSession().removeAttribute("employee");
         return BaseResponse.success("退出成功");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public BaseResponse<String> addEmployee(HttpServletRequest request, @RequestBody Employee employee) {
+        log.info("新增员工，员工信息为：{}", employee);
+        // 设置员工信息
+        employee.setPassword(DigestUtils.md5DigestAsHex(employee.getPassword().getBytes()));
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+        // Long employeeId = (Long) request.getSession().getAttribute("employee");
+        Long employeeId = 1L;
+        employee.setCreateUser(employeeId);
+        employee.setUpdateUser(employeeId);
+        // 往数据库传入数据
+        employeeMapper.insert(employee);
+        return BaseResponse.success("新增员工成功");
     }
 }

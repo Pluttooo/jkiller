@@ -32,8 +32,9 @@ public class LoginCheckFilter implements Filter {
         String requestURI = request.getRequestURI();
         // 定义不需要处理的请求路径
         String[] uris = {
-                "/employee/login",
-                "/employee/logout",
+                "/api/**",
+                "/api/employee/login",
+                "/api/employee/logout",
                 "/backend/**",
                 "/front/**"
         };
