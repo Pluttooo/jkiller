@@ -27,13 +27,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     public BaseResponse<String> addEmployee(Employee employee) {
         // 设置员工信息
         employee.setPassword(DigestUtils.md5DigestAsHex(employee.getPassword().getBytes()));
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
-        // Long employeeId = (Long) request.getSession().getAttribute("employee");
         // 写死添加人为admin
-        Long employeeId = 1L;
-        employee.setCreateUser(employeeId);
-        employee.setUpdateUser(employeeId);
+        // Long employeeId = 1L;
         // 往数据库传入数据
         employeeMapper.insert(employee);
         return BaseResponse.success("新增员工成功");
@@ -51,5 +46,20 @@ public class EmployeeServiceImpl implements EmployeeService {
         // 执行查询
         employeeMapper.selectPage(pageInfo, employeeLambdaQueryWrapper);
         return BaseResponse.success(pageInfo);
+    }
+
+    @Override
+    public BaseResponse<String> updateEmployeeById(Employee employee) {
+        employeeMapper.updateById(employee);
+        return BaseResponse.success("更新成功");
+    }
+
+    @Override
+    public BaseResponse<Employee> getEmployeeById(Long id) {
+        Employee employee = employeeMapper.selectById(id);
+        if (employee == null) {
+            return BaseResponse.error("未查询到该员工信息");
+        }
+        return BaseResponse.success(employee);
     }
 }

@@ -10,4 +10,8 @@ public interface EmployeeService {
 
     BaseResponse<Page<Employee>> getEmployeeList(int page, int pageSize, String name);
 
+    BaseResponse<String> updateEmployeeById(Employee employee);
+
+    BaseResponse<Employee> getEmployeeById(Long id);
+
 }

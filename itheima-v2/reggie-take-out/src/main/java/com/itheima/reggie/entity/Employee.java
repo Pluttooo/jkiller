@@ -23,19 +23,21 @@ public class Employee implements Serializable {
 
     private String sex;
 
-    // 身份证好吗
+    // 身份证号码
     private String idNumber;
 
     private Integer status;
 
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
     @TableField(fill = FieldFill.INSERT)
     private Long createUser;
 
-    @TableField(fill = FieldFill.UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Long updateUser;
 
 }

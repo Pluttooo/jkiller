@@ -2,6 +2,7 @@ package com.itheima.reggie.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.itheima.reggie.common.BaseContext;
 import com.itheima.reggie.common.BaseResponse;
 import com.itheima.reggie.entity.Employee;
 import com.itheima.reggie.entity.mapper.EmployeeMapper;
@@ -11,6 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,6 +36,7 @@ public class EmployeeController {
 
     /**
      * 登录
+     *
      * @param request
      * @param employee
      * @return
@@ -62,6 +65,7 @@ public class EmployeeController {
 
     /**
      * 登出
+     *
      * @param request
      * @return
      */
@@ -75,6 +79,7 @@ public class EmployeeController {
 
     /**
      * 新增员工
+     *
      * @param request
      * @param employee
      * @return
@@ -89,6 +94,7 @@ public class EmployeeController {
 
     /**
      * 分页查询员工信息
+     *
      * @param page
      * @param pageSize
      * @param name
@@ -101,5 +107,27 @@ public class EmployeeController {
             @RequestParam(value = "page_size", defaultValue = "5", required = false) int pageSize,
             @RequestParam(value = "name", required = false) String name) {
         return employeeService.getEmployeeList(page, pageSize, name);
+    }
+
+    /**
+     * 根据id更新员工信息
+     *
+     * @param request
+     * @param employee
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public BaseResponse<String> updateEmployeeById(HttpServletRequest request, @RequestBody Employee employee) {
+        log.info("employee info：{}", employee);
+        Long employeeId = (Long) request.getSession().getAttribute("employee");
+        employee.setId(employeeId);
+        return employeeService.updateEmployeeById(employee);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/get_employee/{id}", method = RequestMethod.GET)
+    public BaseResponse<Employee> getEmployeeById(@PathVariable(value = "id") Long id) {
+        return employeeService.getEmployeeById(id);
     }
 }
