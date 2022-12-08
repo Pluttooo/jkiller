@@ -120,8 +120,8 @@ public class EmployeeController {
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     public BaseResponse<String> updateEmployeeById(HttpServletRequest request, @RequestBody Employee employee) {
         log.info("employee info：{}", employee);
-        Long employeeId = (Long) request.getSession().getAttribute("employee");
-        employee.setId(employeeId);
+        // Long employeeId = (Long) request.getSession().getAttribute("employee");
+        // employee.setId(employeeId);
         return employeeService.updateEmployeeById(employee);
     }
 

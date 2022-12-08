@@ -40,16 +40,17 @@ public class LoginCheckFilter implements Filter {
                 "/front/**"
         };
         boolean check = check(uris, requestURI);
+        // 写死管理员id
+        Long employeeId = 1L;
         if (check) {
             log.info("本次请求{}不需要处理",requestURI);
+            BaseContext.setCurrentId(employeeId);
             filterChain.doFilter(request, response);
             return;
         }
         if (request.getSession().getAttribute("employee") != null) {
-            Long employeeId = (Long) request.getSession().getAttribute("employee");
+            // Long employeeId = (Long) request.getSession().getAttribute("employee");
             log.info("用户已登录，用户id为：{}", employeeId);
-            // 写死管理员id
-            employeeId = 1L;
             BaseContext.setCurrentId(employeeId);
             filterChain.doFilter(request, response);
             return;
