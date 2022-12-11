@@ -1,7 +1,7 @@
 package com.itheima;
 
 import com.itheima.reggie.entity.Employee;
-import com.itheima.reggie.entity.mapper.EmployeeMapper;
+import com.itheima.reggie.mapper.EmployeeMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
