@@ -32,9 +32,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public BaseResponse<Page<Employee>> getEmployeeList(int page, int pageSize, String name) {
+    public BaseResponse<Page<Employee>> getEmployeeList(int pageNum, int pageSize, String name) {
         // 分页构造器
-        Page<Employee> pageInfo = new Page<>(page, pageSize);
+        Page<Employee> pageInfo = new Page<>(pageNum, pageSize);
         // 添加过滤条件
         LambdaQueryWrapper<Employee> employeeLambdaQueryWrapper = new LambdaQueryWrapper<>();
         employeeLambdaQueryWrapper.like(StringUtils.isNotEmpty(name), Employee::getName, name);

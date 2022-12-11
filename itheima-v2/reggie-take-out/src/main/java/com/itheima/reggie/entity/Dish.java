@@ -16,28 +16,28 @@ public class Dish implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    //菜品名称
+    // 菜品名称
     private String name;
 
-    //菜品分类id
+    // 菜品分类id
     private Long categoryId;
 
-    //菜品价格
+    // 菜品价格
     private BigDecimal price;
 
-    //商品码
+    // 商品码
     private String code;
 
-    //图片
+    // 图片
     private String image;
 
-    //描述信息
+    // 描述信息
     private String description;
 
-    //0 停售 1 起售
+    // 0 停售 1 起售
     private Integer status;
 
-    //顺序
+    // 顺序
     private Integer sort;
 
     @TableField(fill = FieldFill.INSERT)

@@ -63,9 +63,14 @@ public class CategoryController {
         return categoryService.updateCategoryById(category);
     }
 
+    /**
+     * 根据id删除分类
+     * @param id
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public BaseResponse<String> delete(@RequestParam(value = "id", required = true) Long id) {
-        return null;
+        return categoryService.deleteCategoryById(id);
     }
 }

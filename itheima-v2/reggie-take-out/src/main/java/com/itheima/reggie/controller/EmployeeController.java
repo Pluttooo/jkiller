@@ -99,10 +99,10 @@ public class EmployeeController {
     @ResponseBody
     @RequestMapping(value = "/emp_list", method = RequestMethod.GET)
     public BaseResponse<Page<Employee>> getEmployeeList(
-            @RequestParam(value = "page_num", defaultValue = "1", required = false) int page,
+            @RequestParam(value = "page_num", defaultValue = "1", required = false) int pageNum,
             @RequestParam(value = "page_size", defaultValue = "5", required = false) int pageSize,
             @RequestParam(value = "name", required = false) String name) {
-        return employeeService.getEmployeeList(page, pageSize, name);
+        return employeeService.getEmployeeList(pageNum, pageSize, name);
     }
 
     /**

@@ -8,7 +8,7 @@ public interface EmployeeService {
 
     BaseResponse<String> addEmployee(Employee employee);
 
-    BaseResponse<Page<Employee>> getEmployeeList(int page, int pageSize, String name);
+    BaseResponse<Page<Employee>> getEmployeeList(int pageNum, int pageSize, String name);
 
     BaseResponse<String> updateEmployeeById(Employee employee);
 
