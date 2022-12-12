@@ -91,7 +91,7 @@ public class EmployeeController {
     /**
      * 分页查询员工信息
      *
-     * @param page
+     * @param pageNum
      * @param pageSize
      * @param name
      * @return

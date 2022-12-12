@@ -4,21 +4,21 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.BaseResponse;
 import com.itheima.reggie.entity.Category;
 import com.itheima.reggie.service.CategoryService;
-import com.sun.xml.internal.ws.api.streaming.XMLStreamWriterFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Slf4j
 @Controller
-@RequestMapping(value = "/category")
+@RequestMapping(value = "/api/category")
 public class CategoryController {
 
     @Autowired
@@ -72,5 +72,20 @@ public class CategoryController {
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     public BaseResponse<String> delete(@RequestParam(value = "id", required = true) Long id) {
         return categoryService.deleteCategoryById(id);
+    }
+
+    /**
+     * 根据条件查询分类数据
+     * @param category
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/get_category_by_condition", method = RequestMethod.POST)
+    public BaseResponse<List<Category>> getCategoryByCondition(@RequestBody Category category) {
+        List<Category> categories = categoryService.queryCategoryListByCondition(category);
+        if (CollectionUtils.isEmpty(categories)) {
+            return BaseResponse.error("未查询到分类");
+        }
+        return BaseResponse.success(categories);
     }
 }

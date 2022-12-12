@@ -12,9 +12,10 @@ import com.itheima.reggie.mapper.DishMapper;
 import com.itheima.reggie.mapper.SetMealMapper;
 import com.itheima.reggie.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -66,5 +67,13 @@ public class CategoryServiceImpl implements CategoryService {
         }
         categoryMapper.deleteById(id);
         return BaseResponse.success("分类删除成功");
+    }
+
+    @Override
+    public List<Category> queryCategoryListByCondition(Category category) {
+        LambdaQueryWrapper<Category> categoryLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        categoryLambdaQueryWrapper.eq(category.getType() != null, Category::getType, category.getType());
+        categoryLambdaQueryWrapper.orderByAsc(Category::getSort).orderByDesc(Category::getUpdateTime);
+        return categoryMapper.selectList(categoryLambdaQueryWrapper);
     }
 }
