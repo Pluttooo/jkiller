@@ -12,11 +12,10 @@ spring:
 mybatis-plus:
   configuration:
     # address_book -> AddressBook
-    # ???????????????????????????????????????
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   global-config:
     db-config:
       id-type: assign_id
 reggie:
-  path: /Users/pluttooo/Desktop
+  path: /Users/pluttooo/Desktop/ReggieFileUploadDir/
