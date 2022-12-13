@@ -62,14 +62,14 @@ public class CommonController {
 
     /**
      * 下载
-     * @param fileName
+     * @param name
      * @param response
      */
     @ResponseBody
     @RequestMapping(value = "/download", method = RequestMethod.GET)
-    public void download(String fileName, HttpServletResponse response) {
+    public void download(String name, HttpServletResponse response) {
         try {
-            FileInputStream fileInputStream = new FileInputStream(new File(basePath + fileName));
+            FileInputStream fileInputStream = new FileInputStream(new File(basePath + name));
             ServletOutputStream outputStream = response.getOutputStream();
             response.setContentType("image/jpeg");
             int len = 0;
