@@ -19,6 +19,11 @@ public class DishController {
     @Autowired
     private DishService dishService;
 
+    /**
+     * 新增菜品
+     * @param dishDto
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public BaseResponse<String> addDish(@RequestBody DishDto dishDto) {
