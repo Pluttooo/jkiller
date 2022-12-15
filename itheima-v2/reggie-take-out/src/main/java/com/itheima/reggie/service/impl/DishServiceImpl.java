@@ -1,5 +1,6 @@
 package com.itheima.reggie.service.impl;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.BaseResponse;
 import com.itheima.reggie.dto.DishDto;
 import com.itheima.reggie.entity.DishFlavor;
@@ -36,5 +37,10 @@ public class DishServiceImpl implements DishService {
         }).collect(Collectors.toList());
         dishFlavorMapper.insertBatchSomeColumn(flavors);
         return BaseResponse.success("新增成功");
+    }
+
+    @Override
+    public BaseResponse<Page<DishDto>> getDishByPage(int pageNum, int pageSize) {
+        return null;
     }
 }
