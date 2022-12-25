@@ -70,4 +70,9 @@ public class DishServiceImpl implements DishService {
         dishDtoPageInfo.setRecords(dishDtoList);
         return BaseResponse.success(dishDtoPageInfo);
     }
+
+    @Override
+    public DishDto getDishWithFlavorById(Long id) {
+        return null;
+    }
 }

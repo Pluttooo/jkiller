@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,5 +50,11 @@ public class DishController {
             @RequestParam(value = "name", required = true) String dishName
     ) {
         return dishService.getDishByPage(pageNum, pageSize, dishName);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/get_dish_by_id/{id}", method = RequestMethod.GET)
+    public BaseResponse<DishDto> getDishById(@PathVariable(value = "id") Long id) {
+        return null;
     }
 }
