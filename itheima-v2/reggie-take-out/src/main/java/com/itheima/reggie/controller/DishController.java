@@ -45,9 +45,9 @@ public class DishController {
     @RequestMapping(value = "/get_dish_page", method = RequestMethod.GET)
     public BaseResponse<Page<DishDto>> getDishPage(
             @RequestParam(value = "page_num", defaultValue = "1", required = false) int pageNum,
-            @RequestParam(value = "page_size", defaultValue = "5", required = false) int pageSize
+            @RequestParam(value = "page_size", defaultValue = "5", required = false) int pageSize,
+            @RequestParam(value = "name", required = true) String dishName
     ) {
-        Page page = new Page();
-        return null;
+        return dishService.getDishByPage(pageNum, pageSize, dishName);
     }
 }

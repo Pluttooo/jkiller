@@ -8,5 +8,5 @@ public interface DishService {
 
     BaseResponse<String> addDishWithFlavor(DishDto dishDto);
 
-    BaseResponse<Page<DishDto>> getDishByPage(int pageNum, int pageSize);
+    BaseResponse<Page<DishDto>> getDishByPage(int pageNum, int pageSize, String dishName);
 }
