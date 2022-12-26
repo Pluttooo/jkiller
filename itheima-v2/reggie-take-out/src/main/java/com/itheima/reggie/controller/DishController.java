@@ -52,9 +52,24 @@ public class DishController {
         return dishService.getDishByPage(pageNum, pageSize, dishName);
     }
 
+    /**
+     * 根据id查询菜品信息
+     * @param id
+     * @return
+     */
     @ResponseBody
     @RequestMapping(value = "/get_dish_by_id/{id}", method = RequestMethod.GET)
     public BaseResponse<DishDto> getDishById(@PathVariable(value = "id") Long id) {
+        DishDto dishDto = dishService.getDishWithFlavorById(id);
+        if (dishDto == null) {
+            return BaseResponse.error("未查询到该信息");
+        }
+        return BaseResponse.success(dishDto);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public BaseResponse<DishDto> update(@RequestBody DishDto dishDto) {
         return null;
     }
 }

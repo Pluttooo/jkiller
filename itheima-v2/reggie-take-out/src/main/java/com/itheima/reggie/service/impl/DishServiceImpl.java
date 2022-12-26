@@ -70,6 +70,13 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public DishDto getDishWithFlavorById(Long id) {
-        return null;
+        Dish dish = dishMapper.selectById(id);
+        DishDto dishDto = new DishDto();
+        BeanUtils.copyProperties(dish, dishDto);
+        LambdaQueryWrapper<DishFlavor> dishFlavorLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        dishFlavorLambdaQueryWrapper.eq(DishFlavor::getDishId, dish.getId());
+        List<DishFlavor> dishFlavors = dishFlavorMapper.selectList(dishFlavorLambdaQueryWrapper);
+        dishDto.setFlavors(dishFlavors);
+        return dishDto;
     }
 }
