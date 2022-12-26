@@ -39,10 +39,7 @@ public class DishServiceImpl implements DishService {
         dishMapper.insert(dishDto);
         Long dishId = dishDto.getId();
         List<DishFlavor> flavors = dishDto.getFlavors();
-        flavors = flavors.stream().map(item -> {
-            item.setDishId(dishId);
-            return item;
-        }).collect(Collectors.toList());
+        flavors = flavors.stream().peek(item -> item.setDishId(dishId)).collect(Collectors.toList());
         dishFlavorMapper.insertBatchSomeColumn(flavors);
         return BaseResponse.success("新增成功");
     }
