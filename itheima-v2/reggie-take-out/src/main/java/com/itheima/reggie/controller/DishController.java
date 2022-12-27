@@ -69,7 +69,7 @@ public class DishController {
 
     @ResponseBody
     @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public BaseResponse<DishDto> update(@RequestBody DishDto dishDto) {
-        return null;
+    public BaseResponse<String> update(@RequestBody DishDto dishDto) {
+        return dishService.updateDishWithFlavor(dishDto);
     }
 }

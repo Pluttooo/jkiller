@@ -79,4 +79,21 @@ public class DishServiceImpl implements DishService {
         dishDto.setFlavors(dishFlavors);
         return dishDto;
     }
+
+    @Override
+    public BaseResponse<String> updateDishWithFlavor(DishDto dishDto) {
+        dishMapper.updateById(dishDto);
+
+        LambdaQueryWrapper<DishFlavor> dishFlavorLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        dishFlavorLambdaQueryWrapper.eq(DishFlavor::getDishId, dishDto.getId());
+        dishFlavorMapper.delete(dishFlavorLambdaQueryWrapper);
+
+        List<DishFlavor> dishFlavors = dishDto.getFlavors();
+        dishFlavors = dishFlavors.stream().peek(item -> item.setDishId(dishDto.getId())).collect(Collectors.toList());
+        int insertBatchSomeColumnResult = dishFlavorMapper.insertBatchSomeColumn(dishFlavors);
+        if (insertBatchSomeColumnResult <= 0) {
+            return BaseResponse.error("更新失败");
+        }
+        return BaseResponse.success("更新成功");
+    }
 }

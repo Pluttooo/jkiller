@@ -11,4 +11,6 @@ public interface DishService {
     BaseResponse<Page<DishDto>> getDishByPage(int pageNum, int pageSize, String dishName);
 
     DishDto getDishWithFlavorById(Long id);
+
+    BaseResponse<String> updateDishWithFlavor(DishDto dishDto);
 }
