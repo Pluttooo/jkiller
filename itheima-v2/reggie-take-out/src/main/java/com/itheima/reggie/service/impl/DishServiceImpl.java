@@ -2,6 +2,7 @@ package com.itheima.reggie.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import com.itheima.reggie.common.BaseResponse;
 import com.itheima.reggie.dto.DishDto;
 import com.itheima.reggie.entity.Category;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -36,12 +38,16 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public BaseResponse<String> addDishWithFlavor(DishDto dishDto) {
-        dishMapper.insert(dishDto);
-        Long dishId = dishDto.getId();
-        List<DishFlavor> flavors = dishDto.getFlavors();
-        flavors = flavors.stream().peek(item -> item.setDishId(dishId)).collect(Collectors.toList());
-        dishFlavorMapper.insertBatchSomeColumn(flavors);
-        return BaseResponse.success("新增成功");
+        try {
+            dishMapper.insert(dishDto);
+            Long dishId = dishDto.getId();
+            List<DishFlavor> flavors = dishDto.getFlavors();
+            flavors = flavors.stream().peek(item -> item.setDishId(dishId)).collect(Collectors.toList());
+            dishFlavorMapper.insertBatchSomeColumn(flavors);
+            return BaseResponse.success("新增成功");
+        } catch (Exception e) {
+            return BaseResponse.error(e.getMessage());
+        }
     }
 
     @Override
@@ -51,6 +57,7 @@ public class DishServiceImpl implements DishService {
         dishLambdaQueryWrapper.like(dishName != null, Dish::getName, dishName);
         dishLambdaQueryWrapper.orderByDesc(Dish::getUpdateTime);
         dishMapper.selectPage(dishPageInfo, dishLambdaQueryWrapper);
+
         Page<DishDto> dishDtoPageInfo = new Page<>();
         BeanUtils.copyProperties(dishPageInfo, dishDtoPageInfo, "records");
         List<Dish> dishPageInfoRecords = dishPageInfo.getRecords();
@@ -65,6 +72,7 @@ public class DishServiceImpl implements DishService {
             return dishDto;
         }).collect(Collectors.toList());
         dishDtoPageInfo.setRecords(dishDtoList);
+
         return BaseResponse.success(dishDtoPageInfo);
     }
 
@@ -82,18 +90,19 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public BaseResponse<String> updateDishWithFlavor(DishDto dishDto) {
-        dishMapper.updateById(dishDto);
+        try {
+            dishMapper.updateById(dishDto);
 
-        LambdaQueryWrapper<DishFlavor> dishFlavorLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        dishFlavorLambdaQueryWrapper.eq(DishFlavor::getDishId, dishDto.getId());
-        dishFlavorMapper.delete(dishFlavorLambdaQueryWrapper);
+            LambdaQueryWrapper<DishFlavor> dishFlavorLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            dishFlavorLambdaQueryWrapper.eq(DishFlavor::getDishId, dishDto.getId());
+            dishFlavorMapper.delete(dishFlavorLambdaQueryWrapper);
 
-        List<DishFlavor> dishFlavors = dishDto.getFlavors();
-        dishFlavors = dishFlavors.stream().peek(item -> item.setDishId(dishDto.getId())).collect(Collectors.toList());
-        int insertBatchSomeColumnResult = dishFlavorMapper.insertBatchSomeColumn(dishFlavors);
-        if (insertBatchSomeColumnResult <= 0) {
-            return BaseResponse.error("更新失败");
+            List<DishFlavor> dishFlavors = dishDto.getFlavors();
+            dishFlavors = dishFlavors.stream().peek(item -> item.setDishId(dishDto.getId())).collect(Collectors.toList());
+            dishFlavorMapper.insertBatchSomeColumn(dishFlavors);
+            return BaseResponse.success("更新成功");
+        } catch (Exception e) {
+            return BaseResponse.error(e.getMessage());
         }
-        return BaseResponse.success("更新成功");
     }
 }

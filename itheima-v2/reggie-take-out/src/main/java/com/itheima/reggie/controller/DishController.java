@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Slf4j
 @Controller
-@RequestMapping(value = "/dish")
+@RequestMapping(value = "/api/dish")
 public class DishController {
 
     @Autowired
@@ -47,7 +47,7 @@ public class DishController {
     public BaseResponse<Page<DishDto>> getDishPage(
             @RequestParam(value = "page_num", defaultValue = "1", required = false) int pageNum,
             @RequestParam(value = "page_size", defaultValue = "5", required = false) int pageSize,
-            @RequestParam(value = "name", required = true) String dishName
+            @RequestParam(value = "name", required = false) String dishName
     ) {
         return dishService.getDishByPage(pageNum, pageSize, dishName);
     }
