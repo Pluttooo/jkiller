@@ -48,4 +48,15 @@ public class SetMealController {
     ) {
         return setMealService.getSetMealByPage(pageNum, pageSize, name);
     }
+
+    /**
+     * 删除套餐
+     * @param id
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    public BaseResponse<String> deleteSetMeal(@RequestParam(value = "id") Long id) {
+        return null;
+    }
 }
