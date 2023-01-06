@@ -3,6 +3,7 @@ package com.itheima.reggie.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.itheima.reggie.common.BaseResponse;
 import com.itheima.reggie.dto.SetMealDto;
+import com.itheima.reggie.entity.SetMeal;
 import com.itheima.reggie.service.SetMealService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -51,12 +54,23 @@ public class SetMealController {
 
     /**
      * 删除套餐
-     * @param id
+     * @param ids
      * @return
      */
     @ResponseBody
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
-    public BaseResponse<String> deleteSetMeal(@RequestParam(value = "id") Long id) {
-        return null;
+    public BaseResponse<String> deleteSetMeal(@RequestParam(value = "id") List<Long> ids) {
+        return setMealService.deleteSetMealWithDishById(ids);
+    }
+
+    /**
+     * 条件获取套餐信息
+     * @param setMeal
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/st_list", method = RequestMethod.POST)
+    public BaseResponse<List<SetMeal>> querySetMealByCondition(SetMeal setMeal) {
+        return setMealService.querySetMealLsitByCondition(setMeal);
     }
 }
