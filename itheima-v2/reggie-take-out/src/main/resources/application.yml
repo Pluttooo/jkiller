@@ -9,6 +9,22 @@ spring:
       url: jdbc:mysql://150.158.180.158:33060/reggie?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
       username: root
       password: 199505
+  mail:
+    default-encoding: utf-8
+    host: smtp.qq.com
+    port: 465
+    username: 1393868638@qq.com
+    password: blizfwmtoktkjbcf
+    properties:
+      mail:
+        debug: true
+        smtp:
+          auth: true
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+          starttls:
+            enable: true
+            required: true
 mybatis-plus:
   configuration:
     # address_book -> AddressBook
