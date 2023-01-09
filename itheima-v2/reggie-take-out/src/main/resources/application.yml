@@ -14,7 +14,7 @@ spring:
     host: smtp.qq.com
     port: 465
     username: 1393868638@qq.com
-    password: blizfwmtoktkjbcf
+    password: sqyaovwbdphzhbcb
     properties:
       mail:
         debug: true
@@ -22,9 +22,6 @@ spring:
           auth: true
           socketFactory:
             class: javax.net.ssl.SSLSocketFactory
-          starttls:
-            enable: true
-            required: true
 mybatis-plus:
   configuration:
     # address_book -> AddressBook
